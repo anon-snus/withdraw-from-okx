@@ -64,5 +64,5 @@ if __name__ == '__main__':
 		loop = asyncio.get_event_loop()
 		loop.run_until_complete(curr())
 	else:
-		print('Specify all variables in the config file!')
+		logger.error(f'Specify all variables in the config file!')
 

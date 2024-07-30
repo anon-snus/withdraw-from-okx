@@ -83,7 +83,6 @@ class OKXActions:
             chain: str,
     ) -> str:
         failed_text = 'Failed to withdraw from OKX'
-        to_address= Web3.to_checksum_address(to_address)
         token_symbol = token_symbol.upper()
         try:
             if not self.okx_client:

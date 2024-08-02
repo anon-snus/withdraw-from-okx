@@ -1,0 +1,46 @@
+import aiohttp
+import asyncio
+from aiohttp_proxy import ProxyConnector
+
+from config import logger
+
+
+async def async_get(
+		url: str,
+		proxy: str | None = None,
+		headers: dict | None = None,
+		**kwargs
+) -> dict | str | None:
+
+	connector = ProxyConnector.from_url(
+		url=proxy
+	) if proxy else None
+
+	async with aiohttp.ClientSession(headers=headers, connector=connector) as session:
+		async with session.get(url=url, **kwargs) as response:
+			status_code = response.status
+			# response = await response.json()
+			response = await response.text()
+			if status_code <= 201:
+				return response
+	return None
+
+async def check_proxy(proxy: str | None = None):
+	'''
+	check if proxy works
+	:param proxy: proxy str link (format: type://login:pass@ip:port) or None
+	:return: if None or proxy works True else False
+	'''
+	if proxy:
+		res = await async_get(url='http://eth0.me/', proxy=proxy)
+		if res.strip() in proxy:
+			logger.info(f'proxy is good your ip is {res}')
+			return True
+		else:
+			logger.warning(f'your proxy does not works, {res}')
+			return False
+	else:
+		logger.info(f'no proxy specified in config')
+		return True
+
+

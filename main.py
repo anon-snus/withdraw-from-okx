@@ -18,7 +18,7 @@ async def main():
 
 		if config.withdraw_from_subaccounts:
 			logger.info(f'starting withdraw from sub accounts')
-			await okx_actions.collect_funds_from_subaccounts()
+			await okx_actions.collect_funds_from_subaccounts(token_symbol=config.token_name.upper())
 
 		if config.shuffle_wallets:
 			random.shuffle(wallets)

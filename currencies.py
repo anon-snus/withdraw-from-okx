@@ -2,6 +2,7 @@ import asyncio
 import csv
 import os
 
+import config
 from config import okx_credentials, logger
 from py_okx_async.OKXClient import OKXClient
 
@@ -18,12 +19,12 @@ def get_unique_filename(directory: str, base_filename: str) -> str:
         counter += 1
     return new_filename
 
-async def curr(list: bool = False, dict: bool =False):
+async def curr(list: bool = False, dict: bool =False, proxy: str | None = None):
 	'''
 	get the names and networks of supporting tokens/coins
 	:returns json file named supporting_tokens.csv
 	'''
-	okx_client = OKXClient(credentials=okx_credentials)
+	okx_client = OKXClient(credentials=okx_credentials, proxy=proxy)
 	data =await okx_client.asset.currencies()
 	csv_data = []
 
@@ -62,7 +63,7 @@ async def curr(list: bool = False, dict: bool =False):
 if __name__ == '__main__':
 	if okx_credentials.completely_filled():
 		loop = asyncio.get_event_loop()
-		loop.run_until_complete(curr())
+		loop.run_until_complete(curr(proxy=config.proxy))
 	else:
 		logger.error(f'Specify all variables in the config file!')
 

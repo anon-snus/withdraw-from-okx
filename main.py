@@ -32,10 +32,7 @@ async def main():
 			)
 
 			network = await currencies.curr(dict=True, proxy=config.proxy)
-			if config.random_chains:
-				chain = (random.choice(config.list_random)).upper()
-			else:
-				chain = config.chain_to_withdraw.upper()
+			chain = (random.choice(config.chain_to_withdraw)).upper()
 			chain = network[chain]
 
 			try:

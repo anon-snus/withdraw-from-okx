@@ -8,7 +8,6 @@ okx_api_key = ''
 okx_secret_key = ''
 okx_passphrase = ''
 
-
 proxy = '' # leave blank if u do not want to use proxy, format type (socks5/http)://login:password@ip:port example: socks5://WvCkB:tzXp86@122.12.145.138:64552
 
 maximum_gas_price = 100
@@ -19,13 +18,10 @@ ethereum_rpc='https://rpc.mevblocker.io'
 '''
 all correct tokens and networks in supporting_tokens (also u can use currincies function to see them up to date) 
 '''
+
 # asset
 token_name='ETH'
-
-random_chains = True # True / False if True will randomly choose one chain from list_random else will use chain in chain tp withdraw
-chain_to_withdraw='Arbitrum One'
-list_random = ['Arbitrum One', 'Zksync era', 'Linea']
-
+chain_to_withdraw = ['Arbitrum One', 'Zksync era', 'Linea'] # put several chains to withdraw in random or one 
 withdraw_amount = {'from': 0.001, 'to': 0.002, 'decimal_places': 5}
 delay_between_withdrawals = {'from': 100, 'to': 500}
 
